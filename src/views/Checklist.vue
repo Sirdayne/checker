@@ -5,6 +5,7 @@
 <script>
 import checklist from '@/checklists/first.json'
 import quiz from '@/components/quiz'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -16,7 +17,7 @@ export default {
     }
   },
   created() {
-    this.checklist = checklist
+    this.checklist = _.cloneDeep(checklist)
   }
 }
 </script>
