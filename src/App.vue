@@ -29,14 +29,23 @@
       <v-toolbar-title>Checker</v-toolbar-title>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height>
+      <v-container fluid>
         <v-layout
                 justify-center
                 align-center
         >
-          <v-flex text-xs-center>
-
-          </v-flex>
+            <v-flex>
+                <v-list>
+                    <template v-for="(item, index) in items">
+                        <v-list-tile :key="index" avatar ripple @click="">
+                            <v-list-tile-content>
+                                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                        <v-divider v-if="index + 1 < items.length" :key="`divider-${index}`"></v-divider>
+                    </template>
+                </v-list>
+            </v-flex>
         </v-layout>
       </v-container>
     </v-content>
@@ -56,7 +65,11 @@ export default {
   },
   data () {
     return {
-      drawer: false
+      drawer: false,
+      items: [
+        { title: 'Чек-лист для подготовки 1', link: 'first.json' },
+        { title: 'Чек-лист для подготовки 2', link: 'second.json' }
+      ]
     }
   }
 }
