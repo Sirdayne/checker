@@ -25,8 +25,8 @@
     data () {
       return {
         items: [
-          { title: 'Чек-лист для подготовки 1', url: '/checklist' },
-          { title: 'Чек-лист для подготовки 2', url: '/checklist' }
+          { title: 'Чек-лист: Безопасное вождение 1', url: '/checklist' },
+          { title: 'Чек-лист: Безопасное вождение 2', url: '/checklist' }
         ]
       }
     },
