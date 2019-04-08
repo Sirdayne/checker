@@ -1,54 +1,49 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer
-            v-model="drawer"
-            fixed
-            app
-    >
-      <v-list dense>
-        <v-list-tile @click="toRoute('/')">
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Главная</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="toRoute('/checklist')">
-          <v-list-tile-action>
-            <v-icon>contact_mail</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Чек-лист безопасное вождение</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar color="indigo" dark fixed app>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Безопасное вождение</v-toolbar-title>
-    </v-toolbar>
-    <v-content>
-        <router-view/>
-    </v-content>
-    <v-footer color="indigo" app>
-      <span class="white--text">&copy; 2019</span>
-    </v-footer>
-  </v-app>
+    <v-app id="inspire">
+        <v-toolbar color="indigo" dark fixed app>
+            <v-toolbar-title>Безопасное вождение</v-toolbar-title>
+        </v-toolbar>
+        <v-content>
+            <router-view/>
+        </v-content>
+        <v-bottom-nav
+                :value="true"
+                absolute
+                color="transparent"
+        >
+            <v-btn
+                    @click="toRoute('/')"
+                    color="indigo"
+                    flat
+                    value="browser"
+            >
+                <span>Главная</span>
+                <v-icon>home</v-icon>
+            </v-btn>
+            <v-btn
+                    @click="toRoute('/about')"
+                    color="indigo"
+                    flat
+                    value="user"
+            >
+                <span>О программе</span>
+                <v-icon>contact_mail</v-icon>
+            </v-btn>
+        </v-bottom-nav>
+    </v-app>
 </template>
 
 <script>
-export default {
-  name: 'App',
-  data () {
-    return {
-      drawer: false
-    }
-  },
-  methods: {
-    toRoute(url) {
-      this.$router.push(url)
+  export default {
+    name: 'App',
+    data() {
+      return {
+      }
+    },
+    methods: {
+      toRoute(url) {
+        this.$router.push(url)
+      }
     }
   }
-}
 </script>
