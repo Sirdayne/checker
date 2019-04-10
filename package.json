@@ -8,8 +8,9 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "jspdf": "^1.5.3",
     "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "pdfmake": "^0.1.54",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
     "vuetify": "^1.5.5",

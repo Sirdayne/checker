@@ -14,7 +14,43 @@
             {{ index }}
         </v-tab>
 
-        <v-btn color="blue" @click="saveAnswers">Сохранить</v-btn>
+        <v-dialog
+                v-model="dialog"
+                width="500"
+        >
+            <template v-slot:activator="{ on }">
+                <v-btn
+                        color="blue"
+                        dark
+                        v-on="on"
+                >
+                    Сохранить
+                </v-btn>
+            </template>
+
+            <v-card>
+                <v-card-title
+                        class="headline grey lighten-2"
+                        primary-title
+                >
+                    Заполните имя
+                </v-card-title>
+
+                <v-card-text>
+                    <v-text-field
+                        label="ФИО: "
+                        v-model="outputName"
+                    ></v-text-field>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="primary" @click="saveAnswers">Сохранить</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
         <v-tabs-items>
             <v-tab-item
@@ -40,13 +76,18 @@
 
 <script>
   import _ from 'lodash'
-  import jsPDF from 'jspdf'
+  import pdfMake from 'pdfmake/build/pdfmake'
+  import pdfFonts from 'pdfmake/build/vfs_fonts'
+  import moment from 'moment'
 
   export default {
     props: ['checklist'],
     data() {
       return {
-        checkboxes: []
+        outputName: '',
+        outputDate: '',
+        checkboxes: [],
+        dialog: false
       }
     },
     created() {
@@ -54,15 +95,55 @@
     },
     methods: {
       saveAnswers() {
-        const doc = new jsPDF()
-        let output = ''
-
+        pdfMake.vfs = pdfFonts.pdfMake.vfs
+        let output = []
+        let element = []
         this.checkboxes.forEach((checkbox, index) => {
-          output += `${index}) ${checkbox.question}`
-          output += checkbox.checked ? ` ${checkbox.checked} ` : 'Нет ответа'
+          element = checkbox.checked ? [`${index}) ${checkbox.question}`, checkbox.checked] : [`${index}) ${checkbox.question}`, 'Нет ответа']
+          output.push(element)
         })
-        doc.text(output, 10, 10)
-        doc.save('чек-лист-безопасное-вождение.pdf')
+        this.outputDate = moment().format('DD/MM/YYYY hh:mm:ss');
+        let docDefinition = {
+          content: [
+            {text: 'Автор: ', style: 'header'},
+            this.outputName,
+            {text: 'Дата: ', style: 'subheader'},
+            this.outputDate,
+            {
+              style: 'tableExample',
+              table: {
+                body: output
+              }
+            },
+          ],
+          styles: {
+            header: {
+              fontSize: 16,
+              bold: true,
+              margin: [0, 0, 0, 10]
+            },
+            subheader: {
+              fontSize: 14,
+              bold: true,
+              margin: [0, 10, 0, 5]
+            },
+            tableExample: {
+              margin: [0, 5, 0, 15]
+            },
+            tableHeader: {
+              bold: true,
+              fontSize: 13,
+              color: 'black'
+            }
+          }
+        }
+        pdfMake.createPdf(docDefinition).download('чек-лист-безопасное-вождение.pdf')
+        this.nullForm()
+      },
+      nullForm() {
+        this.outputName = ''
+        this.outputDate = ''
+        this.dialog = false
       }
     }
   }
