@@ -105,10 +105,9 @@
         this.outputDate = moment().format('DD/MM/YYYY hh:mm:ss');
         let docDefinition = {
           content: [
-            {text: 'Автор: ', style: 'header'},
-            this.outputName,
-            {text: 'Дата: ', style: 'subheader'},
-            this.outputDate,
+            {text: 'Чек-лист Безопасное вождение ', style: 'header'},
+            {text: 'Автор: ', style: 'subheader'}, this.outputName,
+            {text: 'Дата: ', style: 'subheader'}, this.outputDate,
             {
               style: 'tableExample',
               table: {

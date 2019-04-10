@@ -26,7 +26,7 @@
       return {
         items: [
           { title: 'Чек-лист: Безопасное вождение 1', url: '/checklist' },
-          { title: 'Чек-лист: Безопасное вождение 2', url: '/checklist' }
+          { title: 'Чек-лист: Безопасное вождение 2', url: '/checklisthelp' }
         ]
       }
     },
